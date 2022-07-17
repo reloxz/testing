@@ -1,0 +1,222 @@
+
+repeat task.wait()
+until game:IsLoaded()
+
+task.wait(1.5)
+
+local settings = {
+	musicid = ""
+}
+function loadsettings()
+	if not isfile("VECKOAUTOCRASHER settings.json") then
+		rconsoleerr("Settings File Not Found! Redirecting To Settings Saver...")
+		savesettings()
+	else
+		local http = game:GetService("HttpService")
+		settings = http:JSONDecode(readfile("VECKOAUTOCRASHER settings.json"))
+	end
+end
+
+function savesettings()
+	local http = game:GetService("HttpService")
+	rconsoleprint("\n Enter Music Id: ")
+	local id = rconsoleinput()
+	local settings = {
+		musicid = id
+	}
+	local json = http:JSONEncode(settings)
+	writefile("VECKOAUTOCRASHER settings.json", json)
+	rconsoleprint("\n Settings Saved Please Rejoin To Start Crashing!")
+	return rconsoleprint("\n Settings Saved Please Rejoin To Start Crashing!")
+end
+loadsettings()
+function say(i) game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(i, "ALL") end
+function tchat(i)
+	game.Players.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:CaptureFocus()
+	game.Players.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar.Text = i
+	game.Players:chat(i)
+	game.Players.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar.Text = ""
+	game.Players.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:ReleaseFocus()
+ end
+-- re function
+local crashfile = isfile("NBC Servers Crashed.txt")
+if crashfile == false then
+	writefile("NBC Servers Crashed.txt", "NBC Crash File")
+end
+
+local countfile = isfile("AmmountCrashed.txt")
+if countfile == false then
+	writefile("AmmountCrashed.txt", "0")
+end
+
+function updatename()
+	spawn(function()
+		local nbccrash = readfile("AmmountCrashed.txt")
+		rconsolename("VECKOAUTOCRASHER v9.0 NBC Servers Crashed: " ..nbccrash)
+	end)
+end
+updatename()
+--new function
+local http = game:GetService('HttpService')
+function jsone(str)
+	return http:JSONEncode(str)
+end
+function jsond(str)
+	return http:JSONDecode(str)
+end
+local defaultLua = {
+
+}
+
+local data
+if not isfile('cs.json') then
+	writefile('cs.json', jsone(defaultLua))
+	data = defaultLua
+else
+	data = jsond(readfile('cs.json'))
+end
+if not data then
+	warn('Fatal error')
+	return
+end
+function updateFile()
+	local suc,er = pcall(function()
+		writefile('cs.json', jsone(data))
+	end)
+	if not suc then warn(er) end
+end
+
+
+function serverhop()
+	while wait() do
+		pcall(function()
+			local x = {}
+			for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/333164326/servers/Public?sortOrder=Asc&limit=100")).data) do
+				local check = true
+				for _,v2 in pairs(data) do
+					if v2 == v.id then
+						check = false
+					end
+				end
+				if type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId and check then
+					x[#x + 1] = v.id
+					amount = v.playing
+				end
+			end
+			if #x > 0 then
+				wait(0.25)
+				game:GetService("TeleportService"):TeleportToPlaceInstance("333164326", x[math.random(1, #x)])
+			end
+			if #x == 0 then
+				rconsoleprint([[
+                    
+No server found, retrying...]])
+				wait(0.25)
+				game:GetService("TeleportService"):TeleportToPlaceInstance("333164326", x[math.random(1, #x)])
+			end
+		end)
+	end
+end
+
+
+function changeserver()
+	serverhop()
+end
+repeat wait() until game:IsLoaded()
+for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true then
+					child.CanCollide = false
+				end
+			end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(14, 28, 106)
+task.wait(0.10)
+fireclickdetector(game.Workspace.SecureParts.ResetPads.ClickDetector, 0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-10, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-14, 28, 107)
+task.wait(0.10)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-18, 28, 107)
+coroutine.wrap(
+	function()
+		while true do
+			game.Workspace:WaitForChild(game.Players.LocalPlayer.Name.."_ADONISJAIL")
+			tchat(":unjail me")
+			task.wait()
+		end
+	end
+)()
+-- Command Varibles
+
+wait(.5)
+wait()
+tchat(":gear me 94794847")
+tchat(":gear me 94794847")
+tchat(":gear me 94794847")
+tchat(":gear me 94794847")
+tchat(":gear me 94794847")
+
+tchat(":chatnotifyc all 255 0 0 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 0 255 0 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 0 0 255 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 255 0 0 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 0 255 0 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 0 0 255 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 255 0 0 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 0 255 0 ERR C: OP CRASHER 0x38")
+tchat(":chatnotifyc all 0 0 255 ERR C: OP CRASHER 0x38")
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y + 1500, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z))
+
+wait(.5)
+
+local Backpack = game.Players.LocalPlayer:FindFirstChildOfClass("Backpack")
+game.Players.LocalPlayer.Backpack:WaitForChild("VampireVanquisher")
+for _, v in ipairs(Backpack:GetChildren()) do
+	v.Parent = game.Players.LocalPlayer.Character
+	v:Activate()
+end
+
+wait(.2)
+
+game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):UnequipTools()
+
+wait(.4)
+
+for _, v in ipairs(Backpack:GetChildren()) do
+	v.Parent = game.Players.LocalPlayer.Character
+	v:Activate()
+end
+
+wait(.3)
+
+game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):UnequipTools()
+
+table.insert(data,#data+1,game.JobId)
+updateFile()
+wait(1)
+updatename()
+antibanfunction = true
+rconsoleprint("@@GREEN@@")
+rconsoleprint([[
+    
+Server Crashed!]])
+rconsoleprint([[
+
+
+]])
+
+wait(1.5) --//stop roblox from fucking declining my server requests
+
+changeserver()
+
+print("Hopping...")
