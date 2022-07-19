@@ -1,7 +1,1 @@
-rconsoleprint("Sorry, this autocrasher script is unavailable at this time... Try again later.")
-
-while true do end
-
-wait(1)
-
-game:Shutdown()
+print('Booting...')
